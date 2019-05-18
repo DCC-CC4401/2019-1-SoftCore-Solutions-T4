@@ -146,24 +146,21 @@ body {font-size:16px;}
   </head>
   <body>
   <table id="myTable">
-    {% if rubrica %}
     <tr>
       <th></th>
-      {% for nivel in niveles.reverse %}
-      <th>{{ nivel.puntaje }}</th>
-      {% endfor %}
+      <th><div contenteditable="true"> Edit ptje</div></th>
+      <th><div contenteditable="true"> Edit ptje</div></th>
+      <th><div contenteditable="true"> Edit ptje</div></th>
+      <th><div contenteditable="true"> Edit ptje</div></th>
     </tr>
-    {% for criterio in criterios %}
     <tr>
-      <td><b>{{ criterio.texto }}</b></td>
-      {% with niveles=criterio.nivelcumplimiento_set.all %}
-      {% for nivel in niveles.reverse %}
-      <td>{{ nivel.texto }}</td>
-      {% endfor %}
-      {% endwith %}
+      <td><div contenteditable="true">Edit Criterio</div></td>
+      <td><div contenteditable="true">Edit celda</div></td>
+      <td><div contenteditable="true">Edit celda</div></td>
+      <td><div contenteditable="true">Edit celda</div></td>
+      <td><div contenteditable="true">Edit celda</div></td>
     </tr>
-    {% endfor %}
-    {% endif %}
+
   </table>
   </body>
 

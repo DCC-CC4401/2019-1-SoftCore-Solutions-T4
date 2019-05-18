@@ -51,7 +51,9 @@ body {font-size:16px;}
   </div>
 
 <div class="w3-container">
-  <button class="w3-button w3-large w3-red w3-right w3-round">Agregar nueva rúbrica</button><br>
+  <form method="get" action="{% url 'new_ficha' %}">
+    <button class="w3-button w3-large w3-red w3-right w3-round">Agregar nueva rúbrica</button><br>
+  </form>
 </div>
 <!--Seccion rubricas-->
 
@@ -73,7 +75,9 @@ body {font-size:16px;}
         <form method="get" action="{% url 'ficha' rubrica.id %}">
           <button type="submit" class="w3-button w3-large w3-margin-right w3-red w3-left w3-round">Ver</button>
         </form>
-        <button class="w3-button w3-large w3-red w3-left w3-round">Modificar</button>
+        <form method="get" action="{% url 'edit_ficha' rubrica.id %}">
+          <button class="w3-button w3-large w3-red w3-left w3-round">Modificar</button>
+        </form>
         <button class="w3-button w3-large w3-red w3-right w3-round">Eliminar</button>
       </div>
     </div>
