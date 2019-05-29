@@ -46,7 +46,7 @@ body {font-size:16px;}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
-  <div id="titulo"><h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>Ficha_de_Rúbrica</b></h1></div>
+  <div id="titulo"><h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>nombre_ficha</b></h1></div>
 
   <!DOCTYPE html>
   <div class="w3-row w3-container">
@@ -232,6 +232,15 @@ body {font-size:16px;}
 <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
 
 <script>
+
+  var rubrics = {};
+  {% if rubricas %}
+  {% for rubric in rubricas %}
+  rubrics["{{ rubric.id }}"] = "{{ rubric.nombre }}";
+  {% endfor %}
+  {% endif %}
+
+
 // Script to open and close sidebar
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
@@ -298,48 +307,54 @@ function removeColumn(tableId){
 }
 
 //Funcion que valida en primera instancia que los campos de la tabla sean correctos
-function tableIsValid(tableId){
-  var table = document.getElementById(tableId);
-  var i;
-  var prev = 0;
-  for(i=1; i<table.rows[0].cells.length; i++){
-    var str = table.rows[0].cells[i].innerHTML;
-    var length = str.length;
-    var res = str.substring(28, length - 6);
-    if(isNaN(Number(res))){
-      alert("Las casillas de puntajes solo pueden contener caracteres numericos");
-      return false;
-    }
-    if(Number(res) <= prev){
-      alert("Los puntajes deben ser ascendentes hacia la derecha");
-      return false;
-    }
-    prev = Number(res);
-  }
-  for(i=1; i<table.rows.length; i++){
-    var str = table.rows[i].cells[0].innerHTML;
-    var length = str.length;
-    var res = str.substring(28, length - 6);
-    if(res == ""){
-      alert("Todas las casillas de criterio deben tener un texto");
-      return false;
-    }
-    var j = 1;
-    for(j; j<table.rows[i].cells.length; j++){
-      var str2 = table.rows[i].cells[j].innerHTML;
-      var length2 = str2.length;
-      var res2 = str2.substring(28, length2 - 6);
-      if(res == "" && res2 != ""){
-        alert("Un criterio no puede saltarse puntajes")
-        return false;
+    function tableIsValid(tableId, tableTitle) {
+      var table = document.getElementById(tableId);
+      var i;
+      var prev = 0;
+      for (var key in rubrics) {
+        if (rubrics[key] == tableTitle) {
+          alert("El nombre de la rubrica ya esta en uso");
+          return false;
+        }
       }
-      res = res2;
+      for (i = 1; i < table.rows[0].cells.length; i++) {
+        var str = table.rows[0].cells[i].innerHTML;
+        var length = str.length;
+        var res = str.substring(28, length - 6);
+        if (isNaN(Number(res))) {
+          alert("Las casillas de puntajes solo pueden contener caracteres numericos");
+          return false;
+        }
+        if (Number(res) <= prev) {
+          alert("Los puntajes deben ser ascendentes hacia la derecha");
+          return false;
+        }
+        prev = Number(res);
+      }
+      for (i = 1; i < table.rows.length; i++) {
+        var str = table.rows[i].cells[0].innerHTML;
+        var length = str.length;
+        var res = str.substring(28, length - 6);
+        if (res == "") {
+          alert("Todas las casillas de criterio deben tener un texto");
+          return false;
+        }
+        var j = 1;
+        for (j; j < table.rows[i].cells.length; j++) {
+          var str2 = table.rows[i].cells[j].innerHTML;
+          var length2 = str2.length;
+          var res2 = str2.substring(28, length2 - 6);
+          if (res == "" && res2 != "") {
+            alert("Un criterio no puede saltarse puntajes")
+            return false;
+          }
+          res = res2;
+        }
+      }
+
+      return true;
+
     }
-  }
-
-  return true;
-
-}
 
 function postTable(tableId){
   var table = document.getElementById(tableId);
@@ -347,7 +362,7 @@ function postTable(tableId){
   var nombre = titulo.innerHTML.substring(59, titulo.innerHTML.length-9);
   var filas = [];
   var i;
-  if(tableIsValid(tableId)){
+  if (tableIsValid(tableId, nombre)){
     for(i=0; i<table.rows.length; i++){
       var j;
       var fila = [];
@@ -368,18 +383,19 @@ function postTable(tableId){
       data: JSON.stringify({
         'filas': filas, 'nombre':nombre}),
     });
-    alert("Rubrica creada, vuelve a /rubricas/");
-  }
-
-}
-
-function cambiarTitulo(tituloId){
-  var titulo = document.getElementById(tituloId);
-  name = prompt("Ingrese nombre para la ficha rubrica, no puede incluir espacios", "nombre_ficha");
-  if(name != null){
-    titulo.innerHTML = '<h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>' + name +'</b></h1>'
+    alert("Rubrica creada, volviendo a /rubricas/");
+    window.location.href = "/rubricas/"
   }
 }
+
+    function cambiarTitulo(tituloId) {
+      var titulo = document.getElementById(tituloId);
+      var prevTitle = titulo.innerHTML
+      var name = prompt("Ingrese nombre para la ficha rubrica, no puede incluir espacios", "nombre_ficha");
+      if (name != null && name != "") {
+        titulo.innerHTML = '<h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>' + name + '</b></h1>';
+      }
+    }
 
 </script>
 

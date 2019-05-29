@@ -46,11 +46,14 @@ body {font-size:16px;}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
-  {% if rubrica %}
-  <div id="titulo">
-    <h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>{{ rubrica.nombre }}</b></h1>
-  </div>
-  {% endif %}
+
+
+    {% if rubrica %}
+    <div id="titulo"><h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>{{ rubrica.nombre }}</b></h1></div>
+    {% else %}
+    <div id="titulo"><h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b> invalid_title </b></h1></div>
+    {% endif %}
+
   <!DOCTYPE html>
   <div class="w3-row w3-container">
     <div class="w3-col">
@@ -237,6 +240,14 @@ body {font-size:16px;}
 <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
 
 <script>
+
+var rubrics = {};
+{% if rubricas %}
+{% for rubric in rubricas %}
+  rubrics["{{ rubric.id }}"] = "{{ rubric.nombre }}";
+{% endfor %}
+{% endif %}
+
 // Script to open and close sidebar
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
@@ -303,10 +314,16 @@ function removeColumn(tableId){
 }
 
   //Funcion que valida en primera instancia que los campos de la tabla sean correctos
-  function tableIsValid(tableId) {
+  function tableIsValid(tableId, tableTitle, rubricaId) {
     var table = document.getElementById(tableId);
     var i;
     var prev = 0;
+    for(var key in rubrics){
+      if(rubrics[key] == tableTitle && key != rubricaId){
+        alert("El nombre de la rubrica ya esta en uso");
+        return false;
+      }
+    }
     for (i = 1; i < table.rows[0].cells.length; i++) {
       var str = table.rows[0].cells[i].innerHTML;
       var length = str.length;
@@ -350,10 +367,12 @@ function removeColumn(tableId){
     var table = document.getElementById(tableId);
     var titulo = document.getElementById("titulo");
     var nombre = titulo.innerHTML.substring(59, titulo.innerHTML.length - 9);
+    console.log("El inner html es: " + titulo.innerHTML)
+    console.log("El substring del innner html es: " + nombre)
     var filas = [];
     var rubricaId = "{{ rubrica.id }}";
     var i;
-    if (tableIsValid(tableId)) {
+    if (tableIsValid(tableId, nombre, rubricaId)) {
       for (i = 0; i < table.rows.length; i++) {
         var j;
         var fila = [];
@@ -375,16 +394,18 @@ function removeColumn(tableId){
           'filas': filas, 'nombre': nombre, 'id': rubricaId,
         }),
       });
-      alert("Rubrica editada, vuelve a /rubricas/");
+      alert("Rubrica editada, volviendo a /rubricas/");
+      window.location.href = "/rubricas/"
     }
 
   }
 
   function cambiarTitulo(tituloId) {
     var titulo = document.getElementById(tituloId);
-    name = prompt("Ingrese nombre para la ficha rubrica, no puede incluir espacios", "nombre_ficha");
-    if (name != null) {
-      titulo.innerHTML = '<h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>' + name + '</b></h1>'
+    var prevTitle = titulo.innerHTML
+    var name = prompt("Ingrese nombre para la ficha rubrica, no puede incluir espacios", "nombre_ficha");
+    if (name != null && name != "") {
+      titulo.innerHTML = '<h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>' + name + '</b></h1>';
     }
   }
 
