@@ -34,13 +34,13 @@ INSTALLED_APPS = [
     'evaluacion.apps.EvaluacionConfig',
     'cursos.apps.CursosConfig',
     'rubrica.apps.RubricaConfig',
+    'usuarios.apps.UsuariosConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'usuarios.apps.UsersConfig',
 ]
 
 AUTH_USER_MODEL = 'usuarios.CustomUser'

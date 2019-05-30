@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rubrica.views import AdminPageView
+from usuarios.views import AdminPageView
 
 urlpatterns = [
+    path('evaluadores/', include('usuarios.urls')),
     path('evaluaciones/', include('evaluacion.urls')),
     path('admin/', admin.site.urls),
     path('', AdminPageView.as_view(), name='index'),
