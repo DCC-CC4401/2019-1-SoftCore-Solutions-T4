@@ -3,8 +3,8 @@ from django.db import models
 
 # Create your models here.
 class CustomUser(AbstractUser):
-    is_evaluador = models.BooleanField(default=false)
-    is_profesor = models.BooleanField(default=false)
+    is_evaluador = models.BooleanField(default=False)
+    is_profesor = models.BooleanField(default=False)
     
 class Evaluador(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
