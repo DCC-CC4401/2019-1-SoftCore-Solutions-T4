@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<title>Ingeniería de Software</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+    <!--Profile image -->
+  <div class="w3-container">
+      <p class="w3-center"><img src="https://www.w3schools.com/w3images/avatar3.png" class="w3-circle" style="height:200px;width:200px" alt="Avatar"></p>
+    <h3 class="w3-padding-64"><center><b>Usuario</b></center></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cursos</a>
+    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluadores</a>
+      <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Rúbricas</a>
+    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluaciones</a>
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Company Name</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <div id="titulo"><h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>nombre_ficha</b></h1></div>
+
+  <!DOCTYPE html>
+  <div class="w3-row w3-container">
+    <div class="w3-col">
+      <head>
+        <style>
+          .button2 {
+            background-color: #c6bdbb; /* Green */
+            border: none;
+            color: black;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 0.2px 2px;
+            cursor: pointer;
+          }
+
+          .button2 {width: 50%; border-radius: 12px;}
+          .button2.button2:hover {background-color: #FFA07A;}
+
+
+        </style>
+      </head>
+      <body>
+        <button class="button2 button2" onclick="cambiarTitulo('titulo')">Título de la rúbrica<i class="fas fa-edit"></i></button><br>
+      </body>
+    </div>
+
+    <div class = "w3-col" align="right">
+      <head>
+
+        <style>
+          body {font-family: Arial, Helvetica, sans-serif;}
+
+          .form-inline label {
+            margin: 5px 0 5px 0;
+          }
+
+          .form-inline input {
+            vertical-align: middle;
+            margin: 5px 10px ;
+            padding: 5px;
+            width: 10%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+          }
+
+          .form-inline button {
+            padding: 5px 10px;
+            background-color: #c6bdbb;
+            border: none;
+            color: black;
+            cursor: pointer;
+            border-radius: 8px;
+          }
+
+          .form-inline button:hover {
+            background-color: #FFA07A;
+          }
+
+
+        </style>
+      </head>
+      <body>
+        <form class="form-inline">
+          <label>Intervalo de presentación</label>
+          <input placeholder="Ej: 7-10" name="intervalo">
+          <button type="submit">Ok</button>
+        </form>
+      </body>
+    </div>
+  </div>
+
+
+  <head>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        cursor: pointer;
+        margin: 10px 0.5% 0.5%;
+      }
+
+      td, th {
+        border: 1px solid #665f5f;
+        text-align: left;
+        width: 20%;
+        padding: 2.3%;
+      }
+
+      tr:nth-child(even) {
+        background-color: #FFA07A;
+      }
+    </style>
+  </head>
+  <body>
+
+  <table id="myTable">
+    <tr>
+      <th></th>
+      <th><div contenteditable="true">Edit ptje</div></th>
+      <th><div contenteditable="true">Edit ptje</div></th>
+      <th><div contenteditable="true">Edit ptje</div></th>
+      <th><div contenteditable="true">Edit ptje</div></th>
+    </tr>
+    <tr>
+      <td><div contenteditable="true">Edit Criterio</div></td>
+      <td><div contenteditable="true">Edit celda</div></td>
+      <td><div contenteditable="true">Edit celda</div></td>
+      <td><div contenteditable="true">Edit celda</div></td>
+      <td><div contenteditable="true">Edit celda</div></td>
+    </tr>
+
+  </table>
+  </body>
+
+  <div>
+    <head>
+      <style>
+        .btn-group .button {
+          background-color: #c6bdbb;
+          border: none;
+          color: black;
+          padding: 15px 4.6%;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          cursor: pointer;
+          float: left;
+          margin: 18px 2%;
+        }
+
+        .btn-group .button { border-radius: 12px;}
+
+        .btn-group .button:hover { background-color: #FFA07A; }
+
+      </style>
+    </head>
+    <body>
+      <div class="btn-group">
+        <button class="button" onclick="addRow('myTable')">Agregar fila  <i class="fas fa-plus"></i></button>
+        <button class="button" onclick="addColumn('myTable')">Agregar columna  <i class="fas fa-plus"></i></button>
+        <button class="button" onclick="removeRow('myTable')">Borrar fila  <i class="fas fa-trash"></i></button>
+        <button class="button" onclick="removeColumn('myTable')">Borrar columna  <i class="fas fa-trash"></i></button>
+      </div>
+    </body>
+  </div>
+
+  <head>
+    <style>
+    .button1 {
+      background-color: #BF1010;
+      border: none;
+      color: white;
+      padding: 45px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 10px 78%;
+      cursor: pointer;
+    }
+
+    .button1 {border-radius: 12px;}
+    .button1.button1:hover {background-color: #FFA07A;}
+
+    </style>
+  </head>
+  <body>
+    <button class="button1 button1" onclick="postTable('myTable')">Guardar rúbrica  <i class="far fa-save"></i></button>
+  </body>
+
+
+
+<!-- End page content -->
+</>
+
+<!-- W3.CSS Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+<script>
+
+  var rubrics = {};
+  {% if rubricas %}
+  {% for rubric in rubricas %}
+  rubrics["{{ rubric.id }}"] = "{{ rubric.nombre }}";
+  {% endfor %}
+  {% endif %}
+
+
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+function addRow(tableId){
+  var table = document.getElementById(tableId);
+  var row = table.insertRow(-1);
+  var i;
+  for (i = 0; i<table.rows[0].cells.length; i++){
+    var cell = row.insertCell(i);
+    if(i == 0){
+      cell.innerHTML = "<div contenteditable='true'>Edit criterio</div>"
+    }else{
+      cell.innerHTML = "<div contenteditable='true'>Edit celda</div>"
+    }
+  }
+}
+
+function removeRow(tableId){
+  var table = document.getElementById(tableId);
+  if(table.rows.length>2){
+    table.deleteRow(table.rows.length - 1);
+  }
+}
+
+function addColumn(tableId){
+  var table = document.getElementById(tableId);
+  var i;
+  for(i = 0; i<table.rows.length; i++){
+    var indice = table.rows[i].cells.length;
+    cell = table.rows[i].insertCell(indice);
+    if(i == 0){
+      cell.innerHTML = "<div contenteditable='true'>Edit ptje</div>"
+    }else{
+      cell.innerHTML = "<div contenteditable='true'>Edit celda</div>"
+    }
+  }
+}
+
+function removeColumn(tableId){
+  var table = document.getElementById(tableId);
+  var i;
+  if(table.rows[0].cells.length > 2){
+    for(i=0; i<table.rows.length; i++){
+      var indice = table.rows[i].cells.length - 1;
+      table.rows[i].deleteCell(indice); 
+    }
+  }
+}
+
+//Funcion que valida en primera instancia que los campos de la tabla sean correctos
+    function tableIsValid(tableId, tableTitle) {
+      var table = document.getElementById(tableId);
+      var i;
+      var prev = 0;
+      for (var key in rubrics) {
+        if (rubrics[key] == tableTitle) {
+          alert("El nombre de la rubrica ya esta en uso");
+          return false;
+        }
+      }
+      for (i = 1; i < table.rows[0].cells.length; i++) {
+        var str = table.rows[0].cells[i].innerHTML;
+        var length = str.length;
+        var res = str.substring(28, length - 6);
+        if (isNaN(Number(res))) {
+          alert("Las casillas de puntajes solo pueden contener caracteres numericos");
+          return false;
+        }
+        if (Number(res) <= prev) {
+          alert("Los puntajes deben ser ascendentes hacia la derecha");
+          return false;
+        }
+        prev = Number(res);
+      }
+      for (i = 1; i < table.rows.length; i++) {
+        var str = table.rows[i].cells[0].innerHTML;
+        var length = str.length;
+        var res = str.substring(28, length - 6);
+        if (res == "") {
+          alert("Todas las casillas de criterio deben tener un texto");
+          return false;
+        }
+        var j = 1;
+        for (j; j < table.rows[i].cells.length; j++) {
+          var str2 = table.rows[i].cells[j].innerHTML;
+          var length2 = str2.length;
+          var res2 = str2.substring(28, length2 - 6);
+          if (res == "" && res2 != "") {
+            alert("Un criterio no puede saltarse puntajes")
+            return false;
+          }
+          res = res2;
+        }
+      }
+
+      return true;
+
+    }
+
+function postTable(tableId){
+  var table = document.getElementById(tableId);
+  var titulo = document.getElementById("titulo");
+  var nombre = titulo.innerHTML.substring(59, titulo.innerHTML.length-9);
+  var filas = [];
+  var i;
+  if (tableIsValid(tableId, nombre)){
+    for(i=0; i<table.rows.length; i++){
+      var j;
+      var fila = [];
+      for(j=0; j<table.rows[i].cells.length; j++){
+        var str = table.rows[i].cells[j].innerHTML;
+        var length = str.length;
+        var res = str.substring(28,length-6);
+        fila.push(res);
+      }
+      filas.push(fila);
+    }
+    //console.log(filas)
+    var token = '{{ csrf_token }}';
+    $.ajax({
+      headers: {"X-CSRFToken": token},
+      url: '',
+      type: 'POST',
+      data: JSON.stringify({
+        'filas': filas, 'nombre':nombre}),
+    });
+    alert("Rubrica creada, volviendo a /rubricas/");
+    window.location.href = "/rubricas/"
+  }
+}
+
+    function cambiarTitulo(tituloId) {
+      var titulo = document.getElementById(tituloId);
+      var prevTitle = titulo.innerHTML
+      var name = prompt("Ingrese nombre para la ficha rubrica, no puede incluir espacios", "nombre_ficha");
+      if (name != null && name != "") {
+        titulo.innerHTML = '<h1 class="w3-xxxlarge w3-text-red" style="margin: 2%;"><b>' + name + '</b></h1>';
+      }
+    }
+
+</script>
+
+</body>
+</html>

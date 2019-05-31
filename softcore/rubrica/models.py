@@ -35,4 +35,7 @@ class NivelCumplimiento(models.Model):
 
     def __str__(self):
         return self.texto[:25]
+    
+    class Meta:
+        ordering = ['-puntaje']
         
