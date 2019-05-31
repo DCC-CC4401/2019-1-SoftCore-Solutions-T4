@@ -1,0 +1,5 @@
+-Luego de clonar el branch, ejecutar $python manage.py makemigrations $python manage.py migrate --run-syncdb
+-Ejecutar el proyecto con: $python manage.py runserver
+-Ingresar a http://127.0.0.1:8000/rubricas/
+-Crear rubricas.
+-Volver a http://127.0.0.1:8000/rubricas/ y poder visualizarlas o editarlas segun se quiera.
