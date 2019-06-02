@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'usuarios'
 urlpatterns = [
     path('', views.evaluadores, name='evaluadores'),
-    #path('new/', views.new_evaluador, name='new_evaluador')
+    path('eliminar/<int:pk>/', views.eliminar_evaluador, name='eliminar_evaluador'),
 ]

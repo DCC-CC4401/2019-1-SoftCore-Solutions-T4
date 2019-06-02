@@ -59,6 +59,7 @@
 					<th>Apellido</th>
 					<th>Correo</th>
 					<th>Tipo de usuario</th>					
+					<th>Acciones</th>
 				</tr>
 				<tbody>
 					{% for usuario in evaluadores_list %}
@@ -72,6 +73,15 @@
 							{% else %}
 								<td>evaluador</td>
 							{% endif %}
+							<td>
+								&nbsp;
+								<a href="{% url 'evaluador:eliminar_evaluador' usuario.pk %}" class="w3-tooltip">
+									<span style="position:absolute;left:0;bottom:18px" class="w3-text w3-tag">Eliminar</span><i class="fa fa-trash"></i></a>
+								&nbsp;
+								&nbsp;
+								<a href="/admin/usuarios/customuser/{{usuario.pk}}/change/" class="w3-tooltip">
+									<span style="position:absolute;left:0;bottom:18px" class="w3-text w3-tag">Editar</span><i class="fa fa-edit"></i></a>
+							</td>
 						{% endif %}
 					</tr>
 					{% endfor %}
