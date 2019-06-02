@@ -28,3 +28,10 @@ def evaluadores(request):
     evaluadores_list = CustomUser.objects.all()
     context = {'evaluadores_list': evaluadores_list}
     return render(request, 'usuarios/evaluadores1.html', context)
+
+
+def eliminar_evaluador(request, pk):
+    CustomUser.objects.get(pk=pk).delete()
+    evaluadores_list = CustomUser.objects.all()
+    context = {'evaluadores_list': evaluadores_list}
+    return render(request, 'usuarios/evaluadores1.html', context)
