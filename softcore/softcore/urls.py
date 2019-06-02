@@ -18,7 +18,7 @@ from django.urls import include, path
 from rubrica.views import AdminPageView
 
 urlpatterns = [
-    path('evaluadores/', include('usuarios.urls')),
+    path('evaluadores/', include('usuarios.urls', namespace='evaluador')),
     path('evaluaciones/', include('evaluacion.urls')),
     path('rubricas/', include('rubrica.urls')),
     path('admin/', admin.site.urls),
