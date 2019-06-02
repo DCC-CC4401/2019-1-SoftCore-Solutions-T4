@@ -240,7 +240,7 @@ body {font-size:16px;}
   {% endfor %}
   {% endif %}
 
-
+  console.log(rubrics)
 // Script to open and close sidebar
 function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
@@ -311,6 +311,7 @@ function removeColumn(tableId){
       var table = document.getElementById(tableId);
       var i;
       var prev = 0;
+      var ptjes = [];
       for (var key in rubrics) {
         if (rubrics[key] == tableTitle) {
           alert("El nombre de la rubrica ya esta en uso");
@@ -329,8 +330,10 @@ function removeColumn(tableId){
           alert("Los puntajes deben ser ascendentes hacia la derecha");
           return false;
         }
+        ptjes.push(Number(res));
         prev = Number(res);
       }
+      var maxPuntaje = 0;
       for (i = 1; i < table.rows.length; i++) {
         var str = table.rows[i].cells[0].innerHTML;
         var length = str.length;
@@ -348,8 +351,18 @@ function removeColumn(tableId){
             alert("Un criterio no puede saltarse puntajes")
             return false;
           }
+          if(res2 == "" && res != ""){          
+            maxPuntaje += ptjes[j-2]
+          }
+          if(j == table.rows[i].cells.length-1 && res2 != ""){            
+            maxPuntaje += ptjes[j-1]
+          }
           res = res2;
         }
+      }
+      if(maxPuntaje != 6){
+        alert("La suma de puntajes maximos obtenidos en cada criterio debe ser exactamente 6")        
+        return false;
       }
 
       return true;
