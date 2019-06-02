@@ -326,7 +326,7 @@ function removeColumn(tableId){
         alert("Las casillas de puntajes solo pueden contener caracteres numericos");
         return false;
       }
-      if (Number(res) <= prev) {
+      if (Number(res) < prev) {
         alert("Los puntajes deben ser ascendentes hacia la derecha");
         return false;
       }
