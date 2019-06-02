@@ -26,8 +26,8 @@ body {font-size:16px;}
   <div class="w3-bar-block">
     <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
     <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Cursos</a>
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluadores</a>
-      <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Rúbricas</a>
+    <a href="#evaluadores" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluadores</a>
+    <a href="{% url 'rubricas' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Rúbricas</a>
     <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Evaluaciones</a>
     <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
   </div>
@@ -49,7 +49,7 @@ body {font-size:16px;}
 
   <!DOCTYPE html>
   {% if rubrica %}
-  <h3>CC4401: {{ rubrica.nombre }}</h3>
+  <h3>{{ rubrica.nombre }}</h3>
   {% endif %}
   <div align="center">
     <head>
@@ -82,16 +82,7 @@ body {font-size:16px;}
       }
       </style>
     </head>
-    <body >
-      <form class="form-inline">
-        <label>Grupo:</label>
-        <input placeholder="">
-        <label>Presenta:</label>
-        <input placeholder="">
-        <button type="submit">Ok</button>
-      </form>
 
-    </body>
   </div>
 
   <p>Selecciona un nivel por aspecto</p>
@@ -174,9 +165,6 @@ body {font-size:16px;}
   </head>
   <body>
 
-  <p style="margin: 20px 145px"><b>Nota</b></p>
-  <div class="box">1.0</div>
-
 
   </body>
   <div>
@@ -200,9 +188,7 @@ body {font-size:16px;}
 
       </style>
     </head>
-    <body>
-      <button class="button button">Enviar evaluación <i class="fas fa-file-import"></i></button>
-    </body>
+
   </div>
 
 
