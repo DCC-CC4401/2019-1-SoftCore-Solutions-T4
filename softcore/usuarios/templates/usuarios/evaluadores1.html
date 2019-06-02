@@ -1,0 +1,89 @@
+{% extends "index.html" %}
+
+{% block content %}
+	<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:60px;margin-right:0px">
+
+  <!-- Portada -->
+	<div class="w3-container" id="portada" style="margin-top:80px; margin-bottom:10px">
+		<h1 class="w3-xxxlarge w3-text-red"><b>Evaluadores</b></h1>
+		<hr style="width:50px;border:5px solid red" class="w3-round">
+	</div>
+
+	<div class="w3-row-padding w3-center w3-margin-top">
+		<div class="w3-quarter w3-margin-top">
+			<button onclick="document.getElementById('agregar').style.display='block'" class="w3-card w3-container w3-light-gray w3-hover-shadow" style="min-height: 317px; max-width: 300px">
+				<h3>Agregar nuevo evaluador</h3><br>
+				<i class="fas fa-user-plus" style="font-size:80px; text-align:center; 
+				padding: 10px">
+				</i>
+			</button>
+		</div>
+	
+		<div id="agregar" class="w3-modal">
+			<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+				<div class="w3-center"><br>
+				<span onclick="document.getElementById('agregar').style.display='none'" 
+				class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+					<form class="w3-container" method="POST">{% csrf_token %}
+						<div class="w3-section">
+						<label><b>Nombre</b></label>
+						<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Ingrese nombre" name="username" required>
+						<label><b>Apellido</b></label>
+						<input class="w3-input w3-border" type="text" placeholder="Ingrese apellido" name="apellido" required>
+						<label><b>Correo</b></label>
+						<input class="w3-input w3-border" type="text" placeholder="Ingrese correo" name="email" required>
+						<label><b>Tipo de usuario</b></label>
+						<select class="w3-input w3-border" type="text" placeholder="Tipo de usuario" name="tipo_usuario" required>
+							<option value="">----</option>
+							<option value="profesor">profesor</option>
+ 							<option value="evaluador">evaluador</option>
+						</select>
+						<button class="w3-button w3-block w3-red w3-section w3-padding" type="submit">Agregar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		<!--cierre de cajas de cursos-->
+		</div>
+
+	</div>
+
+	<div class="w3-row-padding w3-center w3-margin-top">
+		<table class="w3-table-all">
+			<thead>
+				<tr class="w3-red">
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Correo</th>
+					<th>Tipo de usuario</th>					
+				</tr>
+				<tbody>
+					{% for usuario in evaluadores_list %}
+					<tr>
+						{% if not usuario.is_staff %}
+							<td>{{ usuario.nombre }}</td>
+							<td>{{ usuario.apellido }}</td>
+							<td>{{ usuario.correo }}</td>
+							{% if usuario.profesor %}
+								<td>profesor</td>
+							{% else %}
+								<td>evaluador</td>
+							{% endif %}
+						{% endif %}
+					</tr>
+					{% endfor %}
+				</tbody>
+			</thead>
+		</table>
+
+	</div>
+
+
+
+	
+
+</div>
+{% endblock content %}
