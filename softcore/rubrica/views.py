@@ -17,7 +17,7 @@ def rubricas(request):
 		rubricaId = int(request.POST['id'])
 		rubrica = get_object_or_404(Rubrica, pk=rubricaId)
 		rubrica.delete()
-	rubricas_list = Rubrica.objects.order_by('-id')[:6]
+	rubricas_list = Rubrica.objects.order_by('-id')
 	context = {'rubricas_list': rubricas_list}
 	return render(request, 'rubrica/rubricas.html', context)
 
@@ -109,6 +109,3 @@ def new_ficha(request):
 	else:
 		return render(request, 'rubrica/new_ficha.html', {'rubricas': Rubrica.objects.all()})
 
-def save_ficha(request, rubrica_id=None):
-		print("hola llego un post, creo")
-	#if(request.method == 'POST'):

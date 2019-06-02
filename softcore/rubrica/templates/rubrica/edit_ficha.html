@@ -118,13 +118,6 @@ body {font-size:16px;}
 
         </style>
       </head>
-      <body>
-        <form class="form-inline">
-          <label>Intervalo de presentación</label>
-          <input placeholder="Ej: 7-10" name="intervalo">
-          <button type="submit">Ok</button>
-        </form>
-      </body>
     </div>
   </div>
 
@@ -313,13 +306,14 @@ function removeColumn(tableId){
   }
 }
 
-  //Funcion que valida en primera instancia que los campos de la tabla sean correctos
+//Funcion que valida en primera instancia que los campos de la tabla sean correctos
   function tableIsValid(tableId, tableTitle, rubricaId) {
     var table = document.getElementById(tableId);
     var i;
     var prev = 0;
-    for(var key in rubrics){
-      if(rubrics[key] == tableTitle && key != rubricaId){
+    var ptjes = [];
+    for (var key in rubrics) {
+      if (rubrics[key] == tableTitle && key != rubricaId) {
         alert("El nombre de la rubrica ya esta en uso");
         return false;
       }
@@ -336,8 +330,10 @@ function removeColumn(tableId){
         alert("Los puntajes deben ser ascendentes hacia la derecha");
         return false;
       }
+      ptjes.push(Number(res));
       prev = Number(res);
     }
+    var maxPuntaje = 0;
     for (i = 1; i < table.rows.length; i++) {
       var str = table.rows[i].cells[0].innerHTML;
       var length = str.length;
@@ -355,8 +351,18 @@ function removeColumn(tableId){
           alert("Un criterio no puede saltarse puntajes")
           return false;
         }
+        if (res2 == "" && res != "") {
+          maxPuntaje += ptjes[j - 2]
+        }
+        if (j == table.rows[i].cells.length - 1 && res2 != "") {
+          maxPuntaje += ptjes[j - 1]
+        }
         res = res2;
       }
+    }
+    if (maxPuntaje != 6) {
+      alert("La suma de puntajes maximos obtenidos en cada criterio debe ser exactamente 6")
+      return false;
     }
 
     return true;
@@ -367,8 +373,6 @@ function removeColumn(tableId){
     var table = document.getElementById(tableId);
     var titulo = document.getElementById("titulo");
     var nombre = titulo.innerHTML.substring(59, titulo.innerHTML.length - 9);
-    console.log("El inner html es: " + titulo.innerHTML)
-    console.log("El substring del innner html es: " + nombre)
     var filas = [];
     var rubricaId = "{{ rubrica.id }}";
     var i;
@@ -384,7 +388,6 @@ function removeColumn(tableId){
         }
         filas.push(fila);
       }
-      //console.log(filas)
       var token = '{{ csrf_token }}';
       $.ajax({
         headers: { "X-CSRFToken": token },
