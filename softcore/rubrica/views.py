@@ -41,15 +41,19 @@ def ficha(request, rubrica_id):
 	return render(request, 'rubrica/ficha_rubrica.html', {'rubrica': rubrica, 'criterios': criterios, 'niveles':niveles})
 
 def edit_ficha(request, rubrica_id):
-	error = False
 	if request.method == "POST":
 		data = json.loads(request.body)
 		rubricasWithName = Rubrica.objects.filter(nombre=data['nombre'])
-		if(len(rubricasWithName) == 0 or rubricasWithName[0].id == data['id']):
+		print("las rubricas con el nombre 5 que trae el post son: ", rubricasWithName)
+		print("el nombre de la rubrica es: ", data['nombre'])
+		print("el id de la rubrica es: ", data['id'])
+		#print("las condiciones del if son: ", len(rubricasWithName), rubricasWithName[0].id, rubricasWithName[0].id == int(data['id']))
+		if(len(rubricasWithName) == 0 or rubricasWithName[0].id == int(data['id'])):
 			
 			rubrica = get_object_or_404(Rubrica, pk=int(data['id']))
 			rubrica.delete()
 			rubrica = Rubrica()
+			print(rubrica.id)
 			rubrica.id = int(data['id'])
 			rubrica.nombre = data['nombre']
 			rubrica.tipo = "PL"
@@ -63,11 +67,9 @@ def edit_ficha(request, rubrica_id):
 				nuevoCrit.texto = fila[0]
 				nuevoCrit.save()
 				for i in range(1,len(fila)):
-					nuevoNivel = NivelCumplimiento(criterio=nuevoCrit, texto=fila[i], puntaje=int(puntajes[i]))
+					nuevoNivel = NivelCumplimiento(criterio=nuevoCrit, texto=fila[i], puntaje=float(puntajes[i]))
 					nuevoNivel.save()
 
-		else:
-			error = True
 
 	rubrica = get_object_or_404(Rubrica, pk=rubrica_id)
 	criterios = Criterio.objects.filter(rubrica=rubrica_id)
@@ -85,7 +87,7 @@ def edit_ficha(request, rubrica_id):
 	#el contexto lleva la rubrica en cuestion, un set de niveles que es la primera file de la tabla
 	#ademas de los criterios a partir de los cuales se contruye el resto de la tabla
 	#de esta forma el manejo de la contruccion en el template es mas limpio
-	return render(request, 'rubrica/edit_ficha.html', {'rubrica': rubrica, 'criterios': criterios, 'niveles':niveles, 'error': False, 'rubricas': Rubrica.objects.all()})
+	return render(request, 'rubrica/edit_ficha.html', {'rubrica': rubrica, 'criterios': criterios, 'niveles':niveles, 'rubricas': Rubrica.objects.all()})
 
 def new_ficha(request):
 	if request.method == "POST":
@@ -103,7 +105,7 @@ def new_ficha(request):
 				nuevoCrit.texto = fila[0]
 				nuevoCrit.save()
 				for i in range(1,len(fila)):
-					nuevoNivel = NivelCumplimiento(criterio=nuevoCrit, texto=fila[i], puntaje=int(puntajes[i]))
+					nuevoNivel = NivelCumplimiento(criterio=nuevoCrit, texto=fila[i], puntaje=float(puntajes[i]))
 					nuevoNivel.save()
 		return render(request, 'rubrica/new_ficha.html', {'rubricas': Rubrica.objects.all()})
 	else:
