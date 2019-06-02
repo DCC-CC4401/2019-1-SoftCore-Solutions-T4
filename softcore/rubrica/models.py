@@ -30,7 +30,7 @@ class Criterio(models.Model):
 
 class NivelCumplimiento(models.Model):
     criterio = models.ForeignKey(Criterio, on_delete=models.CASCADE)
-    puntaje = models.IntegerField(default=0)
+    puntaje = models.FloatField(default=0)
     texto = models.CharField(max_length=350)
 
     def __str__(self):
