@@ -1,5 +1,5 @@
-from django.test import TestCase
-from django.db import Error
+from django.test import TestCase, TransactionTestCase
+from django.db import Error, IntegrityError
 from rubrica.models import Rubrica, Criterio, NivelCumplimiento
 
 CRIT_PL_TEXT = 'criterio rub plantilla'
@@ -10,32 +10,35 @@ TEST_RUB = 'testRub'
 PL = 'PL'
 IN = 'IN'
 
-class RubricaTestCase(TestCase):
+class RubricaTestCase(TransactionTestCase):
     """Tests para modelos de las rubricas, criterios y niveles de cumplimiento."""
 
     def setUp(self):
-        plantilla = Rubrica.objects.create(nombre=TEST_RUB, tipo=PL)
-        instancia = Rubrica.objects.create(nombre=TEST_RUB, tipo=IN)
-        crit_pl = Criterio.objects.create(rubrica=plantilla, texto=CRIT_PL_TEXT)
-        crit_in = Criterio.objects.create(rubrica=instancia, texto=CRIT_IN_TEXT)
-        NivelCumplimiento.objects.create(criterio=crit_pl, puntaje=5, texto=NIV_PL_TEXT)
-        NivelCumplimiento.objects.create(criterio=crit_in, puntaje=6, texto=NIV_IN_TEXT)
+        try:
+            plantilla = Rubrica.objects.create(nombre=TEST_RUB, tipo=PL)
+            instancia = Rubrica.objects.create(nombre=TEST_RUB, tipo=IN)
+            crit_pl = Criterio.objects.create(rubrica=plantilla, texto=CRIT_PL_TEXT)
+            crit_in = Criterio.objects.create(rubrica=instancia, texto=CRIT_IN_TEXT)
+            NivelCumplimiento.objects.create(criterio=crit_pl, puntaje=5, texto=NIV_PL_TEXT)
+            NivelCumplimiento.objects.create(criterio=crit_in, puntaje=6, texto=NIV_IN_TEXT)
+        except IntegrityError:
+            self.fail('Error en setup.')
 
     def test_invalid_insert(self):
         """Checkea que solo se puede insertar rubricas de tipo PL e IN."""
-        with self.assertRaises(Error):
+        with self.assertRaises(IntegrityError):
             Rubrica.objects.create(nombre=TEST_RUB, tipo='Invalid')
 
     def test_pl_duplicate(self):
         """Checkea que solo puede insertarse una rubrica plantilla con el mismo nombre."""
-        with self.assertRaises(Error):
+        with self.assertRaises(IntegrityError):
             Rubrica.objects.create(nombre=TEST_RUB, tipo=PL)
 
     def test_in_duplicate(self):
         """Checkea que si se puede insertar mas de una rubrica instancia con el mismo nombre."""
         try:
             Rubrica.objects.create(nombre=TEST_RUB, tipo=IN)
-        except Error:
+        except IntegrityError:
             self.fail('Rubricas de tipo instancia deben poder tener nombres repetidos.')
 
     def test_get_crits_nivs(self):

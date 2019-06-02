@@ -31,7 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'evaluacion.apps.EvaluacionConfig',
+    'cursos.apps.CursosConfig',
     'rubrica.apps.RubricaConfig',
+    'usuarios.apps.UsuariosConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+AUTH_USER_MODEL = 'usuarios.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

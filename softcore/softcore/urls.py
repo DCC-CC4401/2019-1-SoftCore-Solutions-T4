@@ -18,6 +18,8 @@ from django.urls import include, path
 from rubrica.views import AdminPageView
 
 urlpatterns = [
+    path('evaluadores/', include('usuarios.urls')),
+    path('evaluaciones/', include('evaluacion.urls')),
     path('rubricas/', include('rubrica.urls')),
     path('admin/', admin.site.urls),
     path('', AdminPageView.as_view(), name='index'),
