@@ -2,8 +2,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.contrib.auth import get_user_model
 
+
 class UserManager(BaseUserManager):
-    def create_user(self, nombre, apellido, correo, password = None, profesor = False, admin = False):
+    def create_user(self, nombre, apellido, correo, password=None, profesor=False, admin=False):
         if not nombre:
             raise ValueError("Los usuarios deben tener un nombre")
         if not apellido:
@@ -13,10 +14,9 @@ class UserManager(BaseUserManager):
         if not password:
             raise ValueError("Los usuarios deben tener un correo")
 
-
-        user_obj = self.model(correo = self.normalize_email(correo))
+        user_obj = self.model(correo=self.normalize_email(correo))
         #user_obj= get_user_model().objects.create_user(correo = self.normalize_email(correo))
-        
+
         user_obj.nombre = nombre
         user_obj.apellido = apellido
         user_obj.evaluador = True
@@ -27,29 +27,28 @@ class UserManager(BaseUserManager):
         #user_obj.save(using = self._db)
         return user_obj
 
-    def create_profesor_user(self, nombre, apellido, correo, password = None):
-        user = self.create_user(nombre,apellido,correo,password,profesor = True)
+    def create_profesor_user(self, nombre, apellido, correo, password=None):
+        user = self.create_user(nombre, apellido, correo, password, profesor=True)
         return user
 
-    def create_superuser(self,nombre,apellido,correo,password = None):
-        user = self.create_user(nombre,apellido,correo,password,profesor = True, admin=True)
+    def create_superuser(self, nombre, apellido, correo, password=None):
+        user = self.create_user(nombre, apellido, correo, password, profesor=True, admin=True)
         return user
-        
-    
-        
+
+
 # Create your models here.
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    correo = models.EmailField(unique = True)
+    correo = models.EmailField(unique=True)
     nombre = models.CharField(max_length=80)
     apellido = models.CharField(max_length=80)
 
     evaluador = models.BooleanField(default=False)
     profesor = models.BooleanField(default=False)
-    admin = models.BooleanField(default = False)
+    admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'correo'
 
-    REQUIRED_FIELDS = ['nombre','apellido']
+    REQUIRED_FIELDS = ['nombre', 'apellido']
     objects = UserManager()
 
     def __str__(self):
@@ -65,7 +64,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def is_evaluador(self):
         return self.evaluador
 
-    @property 
+    @property
     def is_profesor(self):
         return self.profesor
 
@@ -76,7 +75,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.admin
-    
+
     @property
     def is_superuser(self):
         return self.admin
