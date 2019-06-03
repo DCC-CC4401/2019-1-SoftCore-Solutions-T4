@@ -20,7 +20,7 @@ def evaluadores(request):
 
         if tipo_usuario == 'profesor':
             CustomUser.objects.create(correo=email, nombre=username,
-                                      apellido=apellido, profesor=True)
+                                      apellido=apellido, profesor=True, evaluador = True)
         else:
             CustomUser.objects.create(correo=email, nombre=username,
                                       apellido=apellido, evaluador=True)
