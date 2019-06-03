@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 
@@ -34,4 +34,4 @@ def eliminar_evaluador(request, pk):
     CustomUser.objects.get(pk=pk).delete()
     evaluadores_list = CustomUser.objects.all()
     context = {'evaluadores_list': evaluadores_list}
-    return render(request, 'usuarios/evaluadores1.html', context)
+    return HttpResponseRedirect(reverse('evaluador:evaluadores'))
